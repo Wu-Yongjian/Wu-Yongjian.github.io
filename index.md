@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: YJ
 ---
 
 # 目录
