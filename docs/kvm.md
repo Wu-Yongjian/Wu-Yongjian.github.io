@@ -8,7 +8,7 @@ title: Yj
 ## 虚拟机迁移
 
 ### 创建虚拟机
-```
+```shell
 [root@localhost vmdata]# qemu-img create -f qcow2 /opt/vmdata/rocky1.qcow2 20G 
 Formatting '/opt/vmdata/rocky1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=21474836480 lazy_refcounts=off refcount_bits=16
 [root@localhost ~]# virsh net-list
