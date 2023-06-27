@@ -26,7 +26,7 @@ Formatting '/opt/vmdata/rocky1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=
 ```
 
 ### 本地复制虚拟机
-```
+```shell
 [root@localhost ~]# ls /etc/libvirt/qemu/rocky1.xml 
 /etc/libvirt/qemu/rocky1.xml
 [root@localhost ~]# ls /opt/vmdata/rocky1.qcow2 
@@ -71,7 +71,7 @@ Formatting '/opt/vmdata/rocky1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=
 
 ### 迁移虚拟机
 
-```
+```shell
 
 [root@localhost qemu]# scp /opt/vmdata/rocky1.qcow2 192.168.198.140:/opt/vmdata
 root@192.168.198.140's password: 
