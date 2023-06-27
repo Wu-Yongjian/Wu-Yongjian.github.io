@@ -9,7 +9,7 @@ title: Yj
 ### 添加网卡
 
 [rocky](#heading-ids)	
-```
+```shell
 [root@localhost system-connections]# systemctl restart NetworkManager
 [root@localhost system-connections]# ip a   查看新增的网卡名
 [root@localhost ~]# cd /etc/NetworkManager/system-connections/
@@ -21,7 +21,7 @@ sudo nmcli connection reload
 ### 创建网桥
 [centos](#heading-ids)	
 
-```
+```shell
 sudo brctl addbr virbr1
 sudo brctl addif virbr1 ens37
 
@@ -47,7 +47,7 @@ BRIDGE=virbr1
 ```
 
 [rocky](#heading-ids)	
-```
+```shell
 [root@localhost system-connections]# sudo nmcli connection add type bridge con-name virbr1 ifname virbr1     
 [root@localhost system-connections]# sudo nmcli connection add type ethernet con-name virbr1-slave ifname ens37 master virbr1
 [root@localhost system-connections]# nmcli connection down ens37
@@ -98,7 +98,7 @@ slave-type=bridge
 ### 创建虚拟机
 
 [rocky 宿主机](#heading-ids)	
-```
+```shell
 4: virbr1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 00:0c:29:64:d9:26 brd ff:ff:ff:ff:ff:ff
     inet 10.0.0.12/24 brd 10.0.0.255 scope global noprefixroute virbr1
@@ -110,12 +110,12 @@ slave-type=bridge
     inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
        valid_lft forever preferred_lft forever
 ```
-```
+```shell
 qemu-img create -f qcow2 /opt/vmdata/rocky1.qcow2 20G
 virt-install --virt-type kvm --name rocky1 --ram 1024 --vcpus 1 --cdrom=/tmp/Rocky-9.2-x86_64-dvd.iso --disk /opt/vmdata/rocky1.qcow2 --network network=default,model=virtio  --network bridge=virbr1,model=virtio --os-variant=rocky9.0
 
 ```
-```
+```shell
 kvm rocky1 创建两张网卡
     virbr0 使用default 获取与主机ens33相同网段ip
 	virbr1 使用私网地址10.0.0.0网段
@@ -133,7 +133,7 @@ kvm rocky1 创建两张网卡
        valid_lft forever preferred_lft forever
 ```
 ***设置通往10.0.0.0网段的gw为本地virbr1的地址***
-```
+```shell
 [root@localhost ~]# route add -net 10.0.0.0/24 gw 10.0.0.12
 设置后可以ping centos宿主机的 virbr1 也可以ping centos宿主机的kvm
 kvm的10.0.0.0网段也可以互相ping
@@ -142,7 +142,7 @@ kvm的10.0.0.0网段也可以互相ping
 
 
 [centos 宿主机](#heading-ids)	
-```
+```shell
 4: virbr1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 00:0c:29:df:a3:fd brd ff:ff:ff:ff:ff:ff
     inet 10.0.0.11/24 brd 10.0.0.255 scope global noprefixroute virbr1
@@ -156,11 +156,11 @@ kvm的10.0.0.0网段也可以互相ping
 
 ```
 
-```
+```shell
 qemu-img create -f qcow2 /opt/vmdata/centos1.qcow2 20G 
 virt-install --virt-type kvm --name centos1 --ram 1024 --vcpus 1 --cdrom=/var/lib/libvirt/images/CentOS-7-x86_64-DVD-2009.iso --disk /opt/vmdata/centos1.qcow2  --network bridge=virbr1,model=virtio --os-variant=centos7.0
 ```
-```
+```shell
 kvm centos1 创建一张网卡
 	virbr1 使用私网地址10.0.0.0网段
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
@@ -172,7 +172,7 @@ kvm centos1 创建一张网卡
 
 ```
 ***设置通往10.0.0.0网段的gw为本地virbr1的地址***
-```
+```shell
 [root@localhost ~]# route add -net 10.0.0.0/24 gw 10.0.0.12
 设置后可以ping rocky宿主机的 virbr1 也可以ping rocky宿主机的kvm
 kvm的10.0.0.0网段也可以互相ping
