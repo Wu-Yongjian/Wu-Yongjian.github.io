@@ -66,7 +66,8 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1=jian.com
 DNS.2=jian
-DNS.3=harborserver
+DNS.3=reg.jian.com
+DNS.4=harborserver
 EOF
 [root@localhost harbor]# ls
 ca.crt  ca.key  jian.com.csr  jian.com.key  v3.ext
