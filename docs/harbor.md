@@ -133,6 +133,12 @@ jian.com:8443/yjtest/centos:7
 
 ```
 
+[日志](#heading-ids)	
+```shell
+[root@localhost haproxy]# cd /var/log/harbor/
+[root@localhost harbor]# ls
+core.log  jobservice.log  portal.log  postgresql.log  proxy.log  redis.log  registryctl.log  registry.log
+···
 
 [问题备注](#heading-ids)	
 ```shell
