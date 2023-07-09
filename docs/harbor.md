@@ -101,7 +101,7 @@ data_volume: /opt/harbor/data
 [root@localhost harbor]# mkdir /opt/harbor/data
 ···
 
-[停止](#heading-ids)	
+[启动与停止](#heading-ids)	
 ```shell
 [root@localhost harbor]# ./install.sh 
 
@@ -110,7 +110,10 @@ data_volume: /opt/harbor/data
 [root@localhost harbor]# docker-compose down -v
 [root@localhost harbor]# docker-compose up -d
 
+```
 
+[登录-上传-下载](#heading-ids)	
+```shell
 [root@localhost harbor]# docker login jian.com:8443
 Username: admin
 Password: Harbor12345
@@ -128,7 +131,11 @@ Digest: sha256:dead07b4d8ed7e29e98de0f4504d87e8880d4347859d839686a31da35a3b532f
 Status: Image is up to date for jian.com:8443/yjtest/centos:7
 jian.com:8443/yjtest/centos:7
 
+```
 
+
+[问题备注](#heading-ids)	
+```shell
 
 docker 忽略证书
 /etc/docker/daemon.json
@@ -147,7 +154,11 @@ os级别加载证书
 cp ca.crt /etc/pki/ca-trust/source/anchors
 update-ca-trust extract
 systemctl restart docker
+```
 
+
+## haproxy
+```shell
 
 [root@localhost harbor]# yum install haproxy
 
@@ -183,8 +194,7 @@ backend servers
     server server2 192.168.198.140:80  check
 
 [root@localhost harbor]# systemctl restart haproxy
-
-
+```
 
 
 
