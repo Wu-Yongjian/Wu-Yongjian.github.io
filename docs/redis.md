@@ -142,3 +142,117 @@ abea2f84935dd416742a98804ae78c74ccb34d69 192.168.198.136:6384@16384 slave 09f0a4
 09f0a4579b4e908e94cb6a1679d3375ffc8031c6 192.168.198.136:6382@16382 master - 0 1690288857519 2 connected 5461-10922
 de66af541b69da76bc9d970141930bc087ed5ca2 192.168.198.136:6381@16381 myself,master - 0 1690288853000 1 connected 0-5460
 ```
+
+
+
+##  配置nginx
+```shell
+两台机器做相同的操作
+添加测试页面
+[root@nginx1 system]# cat /var/www/html/index.html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My Website</title>
+</head>
+<body>
+    <h1>Hello, Welcome to My Website!</h1>
+    <p>This is the default page served by Nginx.</p>
+</body>
+</html>
+[root@nginx1 system]# cat /etc/nginx/nginx.conf|grep root
+        root         /var/www/html;
+[root@nginx1 system]# yum install nginx
+[root@nginx1 system]# vi /etc/nginx/nginx.conf
+[root@nginx1 system]# systemctl restart nginx
+访问测试
+[root@nginx1 system]# curl 192.168.198.136
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My Website</title>
+</head>
+<body>
+    <h1>Hello, Welcome to My Website!</h1>
+    <p>This is the default page served by Nginx.</p>
+</body>
+</html>
+
+```
+
+##  配置keepalived
+```shell
+nginx1-2
+[root@nginx1 ]# yum install keepalived
+
+nginx1
+[root@nginx1 ]# cat /etc/keepalived/keepalived.conf
+global_defs {
+    router_id keepalived_hap
+}
+vrrp_script check-haproxy {
+    script "killall -0 haproxy"
+    interval 5
+    weight -30
+}
+vrrp_instance VI-nginx {
+    state MASTER
+    priority 120
+    dont_track_primary
+    interface ens33
+    virtual_router_id 68
+    advert_int 3
+    track_script {
+        check-haproxy
+    }
+    virtual_ipaddress {
+        192.168.198.10
+    }
+}
+
+nginx2
+[root@nginx1 ~]# cat /etc/keepalived/keepalived.conf
+global_defs {
+    router_id keepalived_hap
+}
+vrrp_script check-haproxy {
+    script "killall -0 haproxy"
+    interval 5
+    weight -30
+}
+vrrp_instance VI-nginx {
+    state BACKUP
+    priority 100
+    dont_track_primary
+    interface ens33
+    virtual_router_id 68
+    advert_int 3
+    track_script {
+        check-haproxy
+    }
+    virtual_ipaddress {
+        192.168.198.10
+    }
+}
+```
+
+## 启动服务并测试访问
+``` shell
+[root@nginx1]# systemctl start keepalived
+[root@nginx2]# systemctl start keepalived
+
+
+[root@nginx1 system]# curl 192.168.198.10
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My Website</title>
+</head>
+<body>
+    <h1>Hello, Welcome to My Website!</h1>
+    <p>This is the default page served by Nginx.</p>
+</body>
+</html>
+
+
+
