@@ -11,3 +11,5 @@ title: YJ
 [dockerfile](docs/docker.md)
 # harbor
 [harbor&haproxy](docs/harbor.md)
+# redis
+[redis&keepalived](docs/redis.md)
