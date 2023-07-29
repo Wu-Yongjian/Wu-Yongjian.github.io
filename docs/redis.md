@@ -1,8 +1,8 @@
-
 ---
 layout: default
 title: Yj
 ---
+
 
 
 ## 准备
@@ -241,7 +241,7 @@ vrrp_instance VI-nginx {
 [root@nginx1]# systemctl start keepalived
 [root@nginx2]# systemctl start keepalived
 
-
+访问vip地址
 [root@nginx1 system]# curl 192.168.198.10
 <!DOCTYPE html>
 <html>
@@ -253,6 +253,6 @@ vrrp_instance VI-nginx {
     <p>This is the default page served by Nginx.</p>
 </body>
 </html>
-
+```
 
 
