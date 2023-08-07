@@ -127,34 +127,7 @@ Systemctl start filbeat
 ```
 
 
-## filebeat定义索引名
-```shell
-filebeat.inputs:
-  - type: log
-    paths:
-      - /var/log/messages
-    fields:
-      input_type: system_logs
 
-  - type: log
-    paths:
-      - /path/to/application_logs.log
-    fields:
-      input_type: application_logs
-
-output.elasticsearch:
-  hosts: ["your_elasticsearch_host:9200"]
-  index: >
-    {%- if "system_logs" in [fields.input_type] -%}
-      system-logs-%{+yyyy.MM.dd}
-    {%- elseif "application_logs" in [fields.input_type] -%}
-      application-logs-%{+yyyy.MM.dd}
-    {%- else -%}
-      other-logs-%{+yyyy.MM.dd}
-    {%- endif -%}
-
-
-```
 
 
 
