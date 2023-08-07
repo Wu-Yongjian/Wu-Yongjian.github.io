@@ -372,7 +372,7 @@ jianrs [direct: secondary] admin> rs.status()
 }
 ```
 
-##  开启slave节点刻可读 
+##  开启slave节点可读 
 ```shell
 [root@localhost mongodb-master]# /opt/mongodb-master/bin/mongosh 172.16.17.131:28018
 Current Mongosh Log ID:	64ccb41444579cab268db88d
