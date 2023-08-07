@@ -13,5 +13,5 @@ title: YJ
 [harbor&haproxy](docs/harbor.md)
 # redis
 [redis&keepalived](docs/redis.md)
-# kibana&mongo.md
+# kibana&mongo
 [kibana&mongo](docs/kibana&mongo.md)
