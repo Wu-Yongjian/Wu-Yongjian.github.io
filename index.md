@@ -15,3 +15,5 @@ title: YJ
 [redis&keepalived](docs/redis.md)
 # kibanamongo
 [kibanamongo](docs/kibanamongo.md)
+# redis-es
+[redis-es](docs/redis-es.md)
