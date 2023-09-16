@@ -17,3 +17,6 @@ title: YJ
 [kibanamongo](docs/kibanamongo.md)
 # redis-es
 [redis-es](docs/redis-es.md)
+# kubernetes
+[kubernetes](docs/kubernetes.md)
+
