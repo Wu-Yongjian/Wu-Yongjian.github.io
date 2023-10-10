@@ -19,4 +19,6 @@ title: YJ
 [redis-es](docs/redis-es.md)
 # kubernetes
 [kubernetes](docs/kubernetes.md)
+# N80阶段测试
+[kubernetes](docs/N80阶段测试.md)
 
