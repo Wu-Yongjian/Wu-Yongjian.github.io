@@ -20,5 +20,5 @@ title: YJ
 # kubernetes
 [kubernetes](docs/kubernetes.md)
 # N80阶段测试
-[kubernetes](docs/N80阶段测试.md)
+[N80阶段测试](docs/N80阶段测试.md)
 
